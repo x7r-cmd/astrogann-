@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AstroGann</title>
 <style>
-:root{--bg:#090b12;--card:#121725;--line:#262e43;--text:#eef2ff;--muted:#96a0bb;--gold:#f4c85a;--green:#39d98a;--red:#ff6174;--purple:#df64ff}
+:root{--bg:#090b12;--text:#eef2ff;--muted:#96a0bb;--gold:#f4c85a;--green:#39d98a;--red:#ff6174}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif}
 .app{max-width:720px;margin:auto;padding:16px 14px 40px}.top{display:flex;justify-content:space-between;align-items:center;margin:6px 0 18px}.logo{font-weight:800;font-size:25px}.logo b{color:var(--gold)}.status{font-size:12px;color:var(--green);background:#102a22;border:1px solid #1e6047;border-radius:99px;padding:6px 9px}
 .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}.tabs button,.asset{border:1px solid #27304a;background:#121827;color:#c7d0ea;border-radius:10px;padding:10px 6px;font-weight:700}.tabs button.active,.asset.active{background:#2a223e;border-color:#8559d7;color:#fff}
@@ -13,8 +13,7 @@
 .card{background:linear-gradient(145deg,#141a2a,#0f1421);border:1px solid #252e46;border-radius:16px;padding:14px;margin-bottom:14px;box-shadow:0 10px 25px #0003}.quote{display:flex;align-items:center;justify-content:space-between}.symbol{color:var(--muted);font-size:13px}.price{font-size:31px;font-weight:800;margin-top:4px}.change{padding:8px 10px;border-radius:10px;font-weight:800;background:#113424;color:var(--green)}
 .chart-head,.row{display:flex;justify-content:space-between;gap:10px;align-items:center}.chart-head{font-weight:700;margin-bottom:10px}.muted{color:var(--muted);font-size:12px}
 canvas{width:100%;height:300px;display:block;border-radius:12px;background:#0a0f19;border:1px solid #202941}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#0d1220;border:1px solid #222b42;border-radius:12px;padding:11px}.metric span{display:block;color:var(--muted);font-size:11px}.metric b{font-size:17px;margin-top:4px;display:block}
-.section-title{font-weight:800;margin-bottom:10px}.controls label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}.controls input,.controls select{width:100%;background:#0a0f19;color:#fff;border:1px solid #303b56;border-radius:10px;padding:10px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}.planet{border-top:1px solid #252e43;padding:10px 0}.planet:first-child{border-top:0}.planet .row b{font-size:14px}.tag{font-size:11px;padding:3px 6px;border-radius:6px;background:#1e2538;color:#bec8e2}.warning{font-size:12px;line-height:1.6;color:#cfd6e9;background:#181426;border-right:3px solid var(--gold);padding:10px;border-radius:8px}
-.hidden{display:none}
+.section-title{font-weight:800;margin-bottom:10px}.controls label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}.controls input,.controls select{width:100%;background:#0a0f19;color:#fff;border:1px solid #303b56;border-radius:10px;padding:10px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}.planet{border-top:1px solid #252e43;padding:10px 0}.planet:first-child{border-top:0}.planet .row b{font-size:14px}.tag{font-size:11px;padding:3px 6px;border-radius:6px;background:#1e2538;color:#bec8e2}.warning{font-size:12px;line-height:1.6;color:#cfd6e9;background:#181426;border-right:3px solid var(--gold);padding:10px;border-radius:8px}.hidden{display:none}
 </style>
 </head>
 <body>
@@ -26,11 +25,10 @@ canvas{width:100%;height:300px;display:block;border-radius:12px;background:#0a0f
     <button data-page="levels">المستويات</button>
     <button data-page="settings">الإعدادات</button>
   </nav>
-
   <main id="marketPage">
     <div class="assets" id="assets"></div>
     <section class="card quote">
-      <div><div class="symbol" id="symbol">XAU/USD · GOLD</div><div class="price" id="price">3,500.00</div></div>
+      <div><div class="symbol" id="symbol">XAUUSD · GOLD</div><div class="price" id="price">3,500.00</div></div>
       <div class="change" id="change">+0.00%</div>
     </section>
     <section class="card">
@@ -44,17 +42,14 @@ canvas{width:100%;height:300px;display:block;border-radius:12px;background:#0a0f
       <div class="metric"><span>الاتجاه</span><b id="trendRead">صاعد</b></div>
     </section>
   </main>
-
   <main id="planetsPage" class="hidden">
-    <section class="card"><div class="section-title">حركة الكواكب</div><div class="warning">الحساب الحالي تقريبي للعرض والتجربة. يلزم مزود فلكي أو Swiss Ephemeris لدرجات دقيقة بشكل احترافي.</div></section>
+    <section class="card"><div class="section-title">حركة الكواكب</div><div class="warning">الحساب الحالي تقريبي للعرض والتجربة.</div></section>
     <section class="card" id="planetList"></section>
   </main>
-
   <main id="levelsPage" class="hidden">
-    <section class="card"><div class="section-title">مستويات دورة 144</div><div class="muted">تُحسب من السعر المرجعي ودرجة الكوكب وزاويتي جان 45° و315°.</div></section>
+    <section class="card"><div class="section-title">مستويات دورة 144</div><div class="muted">تُحسب من السعر المرجعي ودرجات الكواكب.</div></section>
     <section class="card" id="levelList"></section>
   </main>
-
   <main id="settingsPage" class="hidden">
     <section class="card controls">
       <div><label>السعر المرجعي</label><input id="anchor" type="number" value="3500" step="0.01"></div>
@@ -63,76 +58,55 @@ canvas{width:100%;height:300px;display:block;border-radius:12px;background:#0a0f
       <div><label>زاوية جان الأولى</label><input id="angleA" type="number" value="45"></div>
       <div><label>زاوية جان الثانية</label><input id="angleB" type="number" value="315"></div>
     </section>
-    <section class="card"><div class="warning">الأسعار في هذه النسخة تجريبية متحركة. ربط الذهب والكريبتو والفوركس بأسعار حقيقية يحتاج مزود بيانات API ومفتاح وصول.</div></section>
+    <section class="card"><div class="warning">الأسعار في هذه النسخة تجريبية متحركة وليست أسعار سوق حية.</div></section>
   </main>
 </div>
-
 <script>
 const assets=[
  {s:"XAUUSD",n:"Gold",p:3500},{s:"BTCUSD",n:"Bitcoin",p:92000},
  {s:"ETHUSD",n:"Ethereum",p:3100},{s:"EURUSD",n:"EUR/USD",p:1.08}
 ];
 const planets=[
- ["☉","الشمس",241.20,.9856,"#f4c85a"],
- ["☿","عطارد",221.95,1.10,"#39d98a"],
- ["♀","الزهرة",204.57,1.20,"#df64ff"],
- ["♂","المريخ",148.98,.524,"#ff6174"],
- ["♃","المشتري",146.40,.083,"#ff9f43"],
- ["♄","زحل",8.20,-.030,"#b48a48"],
- ["♅","أورانوس",63.77,-.040,"#40dce7"],
- ["♆","نبتون",1.72,-.010,"#478cff"],
- ["♇","بلوتو",303.40,.020,"#aab3c7"]
+ ["☉","الشمس",241.20,.9856,"#f4c85a"],["☿","عطارد",221.95,1.10,"#39d98a"],
+ ["♀","الزهرة",204.57,1.20,"#df64ff"],["♂","المريخ",148.98,.524,"#ff6174"],
+ ["♃","المشتري",146.40,.083,"#ff9f43"],["♄","زحل",8.20,-.030,"#b48a48"]
 ];
 let asset=assets[0], prices=[], initialPrice=asset.p, started=Date.now();
-for(let i=0;i<90;i++) prices.push(asset.p*(1+(Math.random()-.5)*.01));
 const $=id=>document.getElementById(id);
-function cfg(){return {anchor:+$("anchor").value||3500,cycle:+$("cycle").value||144,dir:$("trend").value==="up"?1:-1,a:+$("angleA").value||45,b:+$("angleB").value||315}}
-function degree(p){let d=(Date.now()-started)/86400000;let x=p[2]+p[3]*d;return ((x%360)+360)%360}
-function level(p,angle){let c=cfg();return c.anchor+c.dir*((degree(p)+angle)/360)*c.cycle}
-function renderAssets(){ $("assets").innerHTML=assets.map(x=>`<button class="asset ${x.s===asset.s?"active":""}" onclick="selectAsset('${x.s}')">${x.s}</button>`).window.selectAsset = s => {
-  asset = assets.find(x => x.s === s);
-  initialPrice = asset.p;
-  $("anchor").value = asset.p;
-
-  prices = [];
-  for (let i = 0; i < 90; i++) {
-    prices.push(asset.p * (1 + (Math.random() - 0.5) * 0.01));
-  }
-
-  renderAssets();
-  tick();
-};
-
-  prices = [];
-  for (let i = 0; i < 90; i++) {
-    prices.push(asset.p * (1 + (Math.random() - 0.5) * 0.01));
-  }
-
-  renderAssets();
-  tick();
-}; const last=prices.at(-1), next=last*(1+(Math.random()-.5)*.0018);prices.push(next);if(prices.length>100)prices.shift();
+function makePrices(){prices=[];for(let i=0;i<90;i++)prices.push(asset.p*(1+(Math.random()-.5)*.01))}
+makePrices();
+function cfg(){return {anchor:+$("anchor").value||asset.p,cycle:+$("cycle").value||144,dir:$("trend").value==="up"?1:-1,a:+$("angleA").value||45,b:+$("angleB").value||315}}
+function degree(p){const d=(Date.now()-started)/86400000;return ((p[2]+p[3]*d)%360+360)%360}
+function level(p,angle){const c=cfg();return c.anchor+c.dir*((degree(p)+angle)/360)*c.cycle}
+function fmt(v){return v>=100?v.toLocaleString(undefined,{maximumFractionDigits:2}):v.toFixed(v<10?4:2)}
+function renderAssets(){$("assets").innerHTML=assets.map(x=>`<button class="asset ${x.s===asset.s?"active":""}" onclick="selectAsset('${x.s}')">${x.s}</button>`).join("")}
+window.selectAsset=s=>{asset=assets.find(x=>x.s===s);initialPrice=asset.p;$("anchor").value=asset.p;makePrices();renderAssets();tick()}
+function tick(){
+ const last=prices.at(-1),next=last*(1+(Math.random()-.5)*.0018);prices.push(next);if(prices.length>100)prices.shift();
  $("symbol").textContent=asset.s+" · "+asset.n.toUpperCase();$("price").textContent=fmt(next);
  const ch=(next/initialPrice-1)*100;$("change").textContent=(ch>=0?"+":"")+ch.toFixed(2)+"%";$("change").style.color=ch>=0?"#39d98a":"#ff6174";
  $("support").textContent=fmt(Math.min(...prices.slice(-30)));$("resistance").textContent=fmt(Math.max(...prices.slice(-30)));
- $("cycleRead").textContent=cfg().cycle;$("trendRead").textContent=cfg().dir===1?"صاعد":"هابط";
- $("clock").textContent=new Date().toISOString().slice(11,19)+" UTC";renderPlanetLists();drawChart();
+ $("cycleRead").textContent=cfg().cycle;$("trendRead").textContent=cfg().dir===1?"صاعد":"هابط";$("clock").textContent=new Date().toISOString().slice(11,19)+" UTC";
+ renderLists();drawChart();
 }
-function renderPlanetLists(){
+function renderLists(){
  $("planetList").innerHTML=planets.map(p=>`<div class="planet"><div class="row"><b style="color:${p[4]}">${p[0]} ${p[1]}</b><span class="tag">${degree(p).toFixed(2)}°</span></div><div class="muted">السرعة التقريبية: ${p[3]}° / يوم</div></div>`).join("");
- const c=cfg();$("levelList").innerHTML=planets.map(p=>`<div class="planet"><div class="row"><b style="color:${p[4]}">${p[0]} ${p[1]}</b><span>${degree(p).toFixed(2)}°</span></div><div class="row muted"><span>+${c.a}°: <b style="color:${p[4]}">${fmt(level(p,c.a))}</b></span><span>+${c.b}°: <b style="color:${p[4]}">${fmt(level(p,c.b))}</b></span></div></div>`).join("");
+ const c=cfg();$("levelList").innerHTML=planets.map(p=>`<div class="planet"><div class="row"><b style="color:${p[4]}">${p[0]} ${p[1]}</b><span>${degree(p).toFixed(2)}°</span></div><div class="row muted"><span>+${c.a}°: <b>${fmt(level(p,c.a))}</b></span><span>+${c.b}°: <b>${fmt(level(p,c.b))}</b></span></div></div>`).join("");
 }
 function drawChart(){
- const canvas=$("chart"), r=canvas.getBoundingClientRect(), dpr=devicePixelRatio||1;canvas.width=r.width*dpr;canvas.height=r.height*dpr;
- const x=canvas.getContext("2d");x.scale(dpr,dpr);const w=r.width,h=r.height;
- const lv=planets.slice(0,4).flatMap(p=>[[p,level(p,cfg().a)],[p,level(p,cfg().b)]]);
- const vals=[...prices,...lv.map(z=>z[1])],min=Math.min(...vals),max=Math.max(...vals),pad=(max-min)*.08||1;const lo=min-pad,hi=max+pad;
+ const canvas=$("chart"),r=canvas.getBoundingClientRect(),dpr=devicePixelRatio||1;canvas.width=r.width*dpr;canvas.height=r.height*dpr;
+ const x=canvas.getContext("2d");x.setTransform(dpr,0,0,dpr,0,0);const w=r.width,h=r.height;
+ const lv=planets.slice(0,4).map(p=>[p,level(p,cfg().a)]);
+ const vals=[...prices,...lv.map(z=>z[1])],min=Math.min(...vals),max=Math.max(...vals),pad=(max-min)*.12||1,lo=min-pad,hi=max+pad;
  const y=v=>h-(v-lo)/(hi-lo)*h;
- x.clearRect(0,0,w,h);x.strokeStyle="#1f2940";x.lineWidth=1;for(let i=1;i<5;i++){x.beginPath();x.moveTo(0,h*i/5);x.lineTo(w,h*i/5);x.stroke()}
- lv.forEach(([p,v])=>{x.strokeStyle=p[4]+"bb";x.setLineDash([6,4]);x.beginPath();x.moveTo(0,y(v));x.lineTo(w,y(v));x.stroke();x.setLineDash([]);x.fillStyle=p[4];x.font="11px -apple-system";x.fillText(p[1]+" "+fmt(v),8,y(v)-5)});
+ x.clearRect(0,0,w,h);x.strokeStyle="#1f2940";x.lineWidth=1;
+ for(let i=1;i<5;i++){x.beginPath();x.moveTo(0,h*i/5);x.lineTo(w,h*i/5);x.stroke()}
+ lv.forEach(([p,v])=>{x.strokeStyle=p[4]+"bb";x.setLineDash([6,4]);x.beginPath();x.moveTo(0,y(v));x.lineTo(w,y(v));x.stroke();x.setLineDash([]);x.fillStyle=p[4];x.font="11px -apple-system";x.fillText(p[1],8,Math.max(12,y(v)-5))});
  x.strokeStyle="#fff";x.lineWidth=2;x.beginPath();prices.forEach((p,i)=>{const px=i/(prices.length-1)*w,py=y(p);i?x.lineTo(px,py):x.moveTo(px,py)});x.stroke();
 }
 document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(z=>z.classList.remove("active"));b.classList.add("active");["market","planets","levels","settings"].forEach(p=>$(p+"Page").classList.toggle("hidden",p!==b.dataset.page))});
 ["anchor","cycle","trend","angleA","angleB"].forEach(id=>$(id).addEventListener("input",tick));
 renderAssets();tick();setInterval(tick,1000);
 </script>
-</body></html>
+</body>
+</html>
