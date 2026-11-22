@@ -89,11 +89,19 @@ const $=id=>document.getElementById(id);
 function cfg(){return {anchor:+$("anchor").value||3500,cycle:+$("cycle").value||144,dir:$("trend").value==="up"?1:-1,a:+$("angleA").value||45,b:+$("angleB").value||315}}
 function degree(p){let d=(Date.now()-started)/86400000;let x=p[2]+p[3]*d;return ((x%360)+360)%360}
 function level(p,angle){let c=cfg();return c.anchor+c.dir*((degree(p)+angle)/360)*c.cycle}
-function renderAssets(){ $("assets").innerHTML=assets.map(x=>`<button class="asset ${x.s===asset.s?"active":""}" onclick="selectAsset('${x.s}')">${x.s}</button>`).join("")}
-window.selectAsset = s => {
+function renderAssets(){ $("assets").innerHTML=assets.map(x=>`<button class="asset ${x.s===asset.s?"active":""}" onclick="selectAsset('${x.s}')">${x.s}</button>`).window.selectAsset = s => {
   asset = assets.find(x => x.s === s);
   initialPrice = asset.p;
   $("anchor").value = asset.p;
+
+  prices = [];
+  for (let i = 0; i < 90; i++) {
+    prices.push(asset.p * (1 + (Math.random() - 0.5) * 0.01));
+  }
+
+  renderAssets();
+  tick();
+};
 
   prices = [];
   for (let i = 0; i < 90; i++) {
