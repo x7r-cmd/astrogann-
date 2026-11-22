@@ -90,10 +90,19 @@ function cfg(){return {anchor:+$("anchor").value||3500,cycle:+$("cycle").value||
 function degree(p){let d=(Date.now()-started)/86400000;let x=p[2]+p[3]*d;return ((x%360)+360)%360}
 function level(p,angle){let c=cfg();return c.anchor+c.dir*((degree(p)+angle)/360)*c.cycle}
 function renderAssets(){ $("assets").innerHTML=assets.map(x=>`<button class="asset ${x.s===asset.s?"active":""}" onclick="selectAsset('${x.s}')">${x.s}</button>`).join("")}
-window.selectAsset=s=>{asset=assets.find(x=>x.s===s);initialPrice=asset.p;prices=[];for(let i=0;i<90;i++)prices.push(asset.p*(1+(Math.random()-.5)*.01));renderAssets();tick()}
-function fmt(v){return v>=100? v.toLocaleString(undefined,{maximumFractionDigits:2}):v.toFixed(v<10?4:2)}
-function tick(){
- const last=prices.at(-1), next=last*(1+(Math.random()-.5)*.0018);prices.push(next);if(prices.length>100)prices.shift();
+window.selectAsset = s => {
+  asset = assets.find(x => x.s === s);
+  initialPrice = asset.p;
+  $("anchor").value = asset.p;
+
+  prices = [];
+  for (let i = 0; i < 90; i++) {
+    prices.push(asset.p * (1 + (Math.random() - 0.5) * 0.01));
+  }
+
+  renderAssets();
+  tick();
+}; const last=prices.at(-1), next=last*(1+(Math.random()-.5)*.0018);prices.push(next);if(prices.length>100)prices.shift();
  $("symbol").textContent=asset.s+" · "+asset.n.toUpperCase();$("price").textContent=fmt(next);
  const ch=(next/initialPrice-1)*100;$("change").textContent=(ch>=0?"+":"")+ch.toFixed(2)+"%";$("change").style.color=ch>=0?"#39d98a":"#ff6174";
  $("support").textContent=fmt(Math.min(...prices.slice(-30)));$("resistance").textContent=fmt(Math.max(...prices.slice(-30)));
